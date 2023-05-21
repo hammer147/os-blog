@@ -1,34 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Markdown Blog with Remote MDX
 
-## Getting Started
+## Creating new posts
 
-First, run the development server:
+Each post is a .mdx file in the **root** of a separate repo.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+### Frontmatter
+
+Each post must have a frontmatter section at the top of the file. This is a YAML section between two sets of three dashes. The frontmatter must contain the following fields:
+
+```yaml
+---
+title: "My Post Title"
+date: "2023-05-21"
+tags: ["tag1", "tag2"]
+---
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+see:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- @/lib/posts.ts
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Custom Images
 
-## Learn More
+Images can be saved in the same repo as the posts, in an images folder.
 
-To learn more about Next.js, take a look at the following resources:
+To use an image in a post, use the following syntax in your mdx:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```md
+<CustomImage src="https://raw.githubusercontent.com/<github-user-name>/<github-repo-name>/main/images/example.png" alt="image-description">
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Optionally, you can add priority to the image, see: [docs](https://nextjs.org/docs/app/building-your-application/optimizing/images#priority).
 
-## Deploy on Vercel
+see:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- @/app/components/CustomImage.tsx
+- @/lib/posts.ts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Video
+
+Videos can be saved on YouTube.
+To obtain the video ID, look at the URL of the video, it will be the part after `v=`.
+
+To use a video in a post, use the following syntax in your mdx:
+
+```md
+<Video id="<some-youtube-video-id>" />
+```
+
+see:
+
+- @/app/components/Video.tsx
+- @/lib/posts.ts
+
+## Revalidation
+
+The Background Revalidation (ISR) is set to 1 day.
+However, it is possible to use On-demand Revalidation after changing the posts.
+To do this, simply send a GET request to the following endpoint:
+
+```bash
+https://<your-domain>/api/revalidate?path=/&token=<your-revalidation-token>
+```
+
+see:
+
+- @/app/api/revalidate/route.ts
