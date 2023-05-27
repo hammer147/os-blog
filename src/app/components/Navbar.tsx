@@ -31,7 +31,7 @@ export default function Navbar() {
           </Link>
           <Link
             className='text-white/90 hover:text-white'
-            href='https://twitter.com/hashtag/OfficeScripts'
+            href='https://twitter.com/hashtag/officescripts?src=hashtag_click'
             target='_blank'>
             <FaTwitter />
           </Link>
