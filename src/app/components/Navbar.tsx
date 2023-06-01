@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FaYoutube, FaTwitter, FaGithub, FaLaptop, FaMicrosoft } from 'react-icons/fa'
+import { FaYoutube, FaTwitter, FaGithub, FaLaptop, FaMicrosoft, FaStackOverflow } from 'react-icons/fa'
 
 export default function Navbar() {
   return (
@@ -16,6 +16,12 @@ export default function Navbar() {
             href='https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel'
             target='_blank'>
             <FaMicrosoft />
+          </Link>
+          <Link
+            className='text-white/90 hover:text-white'
+            href='https://stackoverflow.com/questions/tagged/office-scripts?tab=newest&page=1&pagesize=15'
+            target='_blank'>
+            <FaStackOverflow />
           </Link>
           <Link
             className='text-white/90 hover:text-white'
